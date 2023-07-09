@@ -54,6 +54,18 @@ function QuestionAnswerOptions(questionObj, answerOptionsObj, correctAnswerObj) 
   this.questionObj = questionObj;
   this.answerOptionsObj = answerOptionsObj;
   this.correctAnswerObj = correctAnswerObj;
+
+  this.correctAnswer = function(userSuppliedAnswer){
+
+    if (userSuppliedAnswer === correctAnswerObj.answerText){
+      console.log("Correct answer");
+      return true;
+    }else{
+      console.log("Incorrect Answer");
+      return false;
+    }
+  }
+
 }
 
 let qAO1 = new QuestionAnswerOptions(question1, answerOptions1, functionAnswerOption);
@@ -66,6 +78,7 @@ let qAO5 = new QuestionAnswerOptions(question5, answerOptions5, programmingLangu
 function QuizApplication(questionAnswerOptionsArray){
 
   this.pageIndex = 0;
+  this.score = 0;
   this.questionAnswerOptionsArray = questionAnswerOptionsArray
 
   this.startQuiz = function(){
@@ -146,7 +159,22 @@ function QuizApplication(questionAnswerOptionsArray){
 
       console.log("THIS")
       console.log(this);
-      // Score tracking logic
+
+      const questionAnswerOptionsObj = currentQuizApplicationObj.questionAnswerOptionsArray[currentQuizApplicationObj.pageIndex];
+
+      const eventTarget = event.currentTarget 
+      console.log("Event Target is " + eventTarget);
+
+      const buttonEventTarget = eventTarget;
+      const spanElement = buttonEventTarget.children[0];
+
+      const userSuppliedAnswer = spanElement.innerHTML;
+      console.log("User Supplied Answer " + userSuppliedAnswer);
+
+      const result = questionAnswerOptionsObj.correctAnswer(userSuppliedAnswer)
+      if (result){
+        currentQuizApplicationObj.incrementScore();
+      }
 
       // this -> quizApplication
       currentQuizApplicationObj.nextPage();
@@ -171,6 +199,23 @@ function QuizApplication(questionAnswerOptionsArray){
 
   this.displayResultPage = function(){
     console.log("Render result page");
+
+    const resultHtmlFragment = 
+      `<h1>Result</h1>
+      <h3 id='score'>Your score : ${this.score}. Mark Percentage is ${this.calculatePercentage()} </h3>`;
+
+      const quizElement = document.getElementById("quiz");
+      quizElement.innerHTML = resultHtmlFragment;
+  }
+
+  this.calculatePercentage = function(){
+
+    return
+    (this.score / questionAnswerOptionsArray.length) * 100
+   }
+
+  this.incrementScore = function() {
+    this.score ++;
   }
 }
 
