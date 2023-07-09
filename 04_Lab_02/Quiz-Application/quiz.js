@@ -60,16 +60,46 @@ let qAO1 = new QuestionAnswerOptions(question1, answerOptions1, functionAnswerOp
 let qAO2 = new QuestionAnswerOptions(question2, answerOptions2, cssAnswerOption);
 let qAO3 = new QuestionAnswerOptions(question3, answerOptions3, pythonScriptAnswerOption);
 let qAO4 = new QuestionAnswerOptions(question4, answerOptions4, phpAnswerOption);
-let qAO5 = new QuestionAnswerOptions(question5, answerOptions1, programmingLanguageAnswerOption);
+let qAO5 = new QuestionAnswerOptions(question5, answerOptions5, programmingLanguageAnswerOption);
 
 
 function QuizApplication(questionAnswerOptionsArray){
 
+  this.pageIndex = 0;
   this.questionAnswerOptionsArray = questionAnswerOptionsArray
+
+  this.startQuiz = function(){
+
+    this.displayQuestionPage();
+  }
+
+  this.displayQuestionPage = function(){
+
+    this.displayQASection();
+    this.displayProgressSection();
+  }
+
+  this.displayQASection = function(){
+
+    const questionElement = document.getElementById("question")
+    // 
+
+    const questionAnswerOptionsObj 
+      = this.questionAnswerOptionsArray[this.pageIndex];
+
+    questionElement.innerHTML = questionAnswerOptionsObj.questionObj.questionText;
+
+  }
+
+
+  this.displayProgressSection = function(){
+
+  }
 }
 
 const quizApplication = new QuizApplication([
   qAO1, qAO2, qAO3, qAO4, qAO5
 ]);
+quizApplication.startQuiz();
 
 // qAO1.isACorrectAnswer(userSuppliedAnswer)
