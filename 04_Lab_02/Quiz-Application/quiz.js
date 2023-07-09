@@ -60,7 +60,7 @@ let qAO1 = new QuestionAnswerOptions(question1, answerOptions1, functionAnswerOp
 let qAO2 = new QuestionAnswerOptions(question2, answerOptions2, cssAnswerOption);
 let qAO3 = new QuestionAnswerOptions(question3, answerOptions3, pythonScriptAnswerOption);
 let qAO4 = new QuestionAnswerOptions(question4, answerOptions4, phpAnswerOption);
-let qAO5 = new QuestionAnswerOptions(question1, answerOptions1, programmingLanguageAnswerOption);
+let qAO5 = new QuestionAnswerOptions(question5, answerOptions1, programmingLanguageAnswerOption);
 
 
 function QuizApplication(questionAnswerOptionsArray){
