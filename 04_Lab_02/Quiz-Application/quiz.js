@@ -39,15 +39,15 @@ function AnswerOptions(answerOptions) {
   this.answerOptions = answerOptions;
 }
 
-let answerOptions1 = new AnswerOption([functionAnswerOption, xhtmlAnswerOption, cssAnswerOption, htmlAnswerOption]);
+let answerOptions1 = new AnswerOptions([functionAnswerOption, xhtmlAnswerOption, cssAnswerOption, htmlAnswerOption]);
 
-let answerOptions2 = new AnswerOption([htmlAnswerOption, jQueryAnswerOption, cssAnswerOption, xmlAnswerOption]);
+let answerOptions2 = new AnswerOptions([htmlAnswerOption, jQueryAnswerOption, cssAnswerOption, xmlAnswerOption]);
 
-let answerOptions3 = new AnswerOption([pythonScriptAnswerOption, jQueryAnswerOption, djangoAnswerOption, nodeJSAnswerOption]);
+let answerOptions3 = new AnswerOptions([pythonScriptAnswerOption, jQueryAnswerOption, djangoAnswerOption, nodeJSAnswerOption]);
 
-let answerOptions4 = new AnswerOption([phpAnswerOption, htmlAnswerOption, jsAnswerOption, allAnswerOption]);
+let answerOptions4 = new AnswerOptions([phpAnswerOption, htmlAnswerOption, jsAnswerOption, allAnswerOption]);
 
-let answerOptions5 = new AnswerOption([languageAnswerOption, programmingLanguageAnswerOption, developmentAnswerOption, allAnswerOption]);
+let answerOptions5 = new AnswerOptions([languageAnswerOption, programmingLanguageAnswerOption, developmentAnswerOption, allAnswerOption]);
 
 function QuestionAnswerOptions(questionObj, answerOptionsObj, correctAnswerObj) {
 
@@ -82,18 +82,43 @@ function QuizApplication(questionAnswerOptionsArray){
   this.displayQASection = function(){
 
     const questionElement = document.getElementById("question")
-    // 
 
+    // Question
     const questionAnswerOptionsObj 
       = this.questionAnswerOptionsArray[this.pageIndex];
-
     questionElement.innerHTML = questionAnswerOptionsObj.questionObj.questionText;
 
+    // Answer Options
+
+    console.log("Outside for loop");
+    console.log(questionAnswerOptionsObj.answerOptionsObj);
+
+    const answerOptionsObjArray  = questionAnswerOptionsObj.answerOptionsObj.answerOptions;
+
+    for (let index = 0; index < answerOptionsObjArray.length; index ++){
+
+      console.log("Inside for loop");
+
+      const answerOptionObj = answerOptionsObjArray[index];
+      const answerText = answerOptionObj.answerText;
+      console.log(answerText);
+
+      const answerElement = document.getElementById("choice" + index);
+      answerElement.innerHTML = answerText;
+    }
   }
 
 
   this.displayProgressSection = function(){
 
+    const progressElement = document.getElementById("progress");
+
+    const questionAnswerOptionsObj 
+    = this.questionAnswerOptionsArray[this.pageIndex];
+
+    const progressElementText = `Question ${questionAnswerOptionsObj.questionObj.index} of ${questionAnswerOptionsArray.length}`;
+
+    progressElement.innerHTML = progressElementText;
   }
 }
 
