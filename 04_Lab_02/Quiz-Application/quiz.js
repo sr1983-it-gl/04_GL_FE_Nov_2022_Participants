@@ -70,6 +70,7 @@ function QuizApplication(questionAnswerOptionsArray){
 
   this.startQuiz = function(){
 
+    this.attachListeners();
     this.displayQuestionPage();
   }
 
@@ -119,6 +120,57 @@ function QuizApplication(questionAnswerOptionsArray){
     const progressElementText = `Question ${questionAnswerOptionsObj.questionObj.index} of ${questionAnswerOptionsArray.length}`;
 
     progressElement.innerHTML = progressElementText;
+  }
+
+  this.attachListeners = function() {
+
+    const currentQuizApplicationObj = this;
+
+    const questionAnswerOptionsObj 
+    = this.questionAnswerOptionsArray[this.pageIndex];
+
+    const answerOptionsObjArray  = questionAnswerOptionsObj.answerOptionsObj.answerOptions;
+
+    for (let index = 0; index < answerOptionsObjArray.length; index ++){
+
+      const buttonId = "btn" + index;
+
+      const answerChoiceHtmlElement = document.getElementById(buttonId);  
+      this.addEventListener(answerChoiceHtmlElement, currentQuizApplicationObj);
+    }
+  }
+
+  this.addEventListener = function(answerChoiceHtmlElement, currentQuizApplicationObj){
+
+    answerChoiceHtmlElement.onclick = function(event) {
+
+      console.log("THIS")
+      console.log(this);
+      // Score tracking logic
+
+      // this -> quizApplication
+      currentQuizApplicationObj.nextPage();
+    }
+  }
+
+  this.nextPage = function() {
+
+    if (this.pageIndex === (this.questionAnswerOptionsArray.length - 1)){
+      this.displayResultPage();
+    }else{
+      this.initAndDisplayNextQuestionPage();
+    }
+  }
+
+  this.initAndDisplayNextQuestionPage = function(){
+
+      this.pageIndex ++;
+      this.attachListeners();
+      this.displayQuestionPage();
+  }
+
+  this.displayResultPage = function(){
+    console.log("Render result page");
   }
 }
 
