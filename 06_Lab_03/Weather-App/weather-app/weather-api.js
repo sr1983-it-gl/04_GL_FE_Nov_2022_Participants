@@ -23,6 +23,8 @@ class WeatherAPI {
   // Pattern 01
   async invokeAPI(){
 
+    // this.buildURL();
+
     const responseObj = await fetch(this.weatherAPIURL.toString());
     const jsonResponse = await responseObj.json();
 

@@ -12,20 +12,30 @@ class WeatherApp{
 
     const searchBoxElement = document.querySelector(".search-box");
 
-    // Add event
-    
+    searchBoxElement.param1 = this;
+    searchBoxElement.addEventListener("keypress", this.handleEvent);
   }
 
   handleEvent(event){
 
-    const eventTarget = event.target;
-    const userData = eventTarget.value;
+    if (event.key === "Enter" || event.keyCode == 13){
 
-    const weatherAPI = new WeatherAPI(userData);
-    const responseJSON = weatherAPI.invokeAPI();
-    // call the API
+      const eventTarget = event.target;
+      const userData = eventTarget.value;
+  
+      const weatherAppObj = eventTarget.param1
 
-    this.updateUI(responseJSON)
+      const weatherAPI = new WeatherAPI(userData);
+      weatherAPI.buildURL();
+      weatherAPI.invokeAPI()
+        .then( (responseJSON) => {
+
+          console.log(`Response is `);
+          console.log(responseJSON);
+
+          weatherAppObj.updateUI(responseJSON)
+        })  
+    }
   }
 
   updateUI(responseJSON){
@@ -37,3 +47,5 @@ class WeatherApp{
       //
   }
 }
+
+export {WeatherApp};
