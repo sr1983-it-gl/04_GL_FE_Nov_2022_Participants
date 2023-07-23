@@ -20,8 +20,21 @@ class WeatherAPI {
     console.log(`Final URL is ${this.weatherAPIURL}`);
   }
 
-  invokeAPI(){
+  // Pattern 01
+  async invokeAPI(){
 
+    const responseObj = await fetch(this.weatherAPIURL.toString());
+    const jsonResponse = await responseObj.json();
+
+    return jsonResponse;
+  }
+
+  // Pattern 02
+  async invokeAPIv2(){
+
+      // fetch
+      // . then()
+      // . catch()
   }
 
 }

@@ -9,4 +9,15 @@ function testBuildURL(){
 
 }
 
-testBuildURL();
+async function testInvokeAPI(){
+
+  const weatherAPI = new WeatherAPI("France");
+  weatherAPI.buildURL();
+
+  const jsonResponse = await weatherAPI.invokeAPI();
+  console.log(jsonResponse);
+}
+
+// testBuildURL();
+
+testInvokeAPI();
