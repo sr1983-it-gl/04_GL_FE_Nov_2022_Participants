@@ -44,7 +44,29 @@ class WeatherApp{
     cityElement.innerText = 
       `${responseJSON.name} , ${responseJSON.sys.country}`
 
-      //
+    const dateElement = document.querySelector(".location .date");
+    dateElement.innerText = `${this.formatDate()}`;
+
+    const temperateElement = document.querySelector(".current .temp");
+    temperateElement.innerText = `${responseJSON.main.temp} °c`;
+
+    const weatherTypeElement = document.querySelector(".current .weather");
+    weatherTypeElement.innerText = `${responseJSON.weather[0].description}`;
+
+
+    const minMaxElement = document.querySelector(".current .hi-low");
+    minMaxElement.innerText = `${responseJSON.main.temp_min} °c / ${responseJSON.main.temp_max} °c`
+  }
+
+  formatDate(){
+
+    const today = new Date();
+    return today.toLocaleDateString("en-US", {
+      weekday : 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
   }
 }
 
