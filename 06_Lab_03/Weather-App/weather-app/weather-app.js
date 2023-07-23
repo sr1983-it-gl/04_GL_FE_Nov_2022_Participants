@@ -3,6 +3,11 @@ import {WeatherAPI} from "./weather-api.js";
 
 class WeatherApp{
 
+  init(){
+
+    this.addEventHandler();
+  }
+  
   addEventHandler(){
 
     const searchBoxElement = document.querySelector(".search-box");
