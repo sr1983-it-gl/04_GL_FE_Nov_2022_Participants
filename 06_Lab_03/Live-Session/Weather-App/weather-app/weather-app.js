@@ -23,6 +23,8 @@ class WeatherApp{
       const eventTarget = event.target;
       const userData = eventTarget.value;
   
+      console.log("Event Target . Param 1" + eventTarget.param1);
+
       const weatherAppObj = eventTarget.param1
 
       const weatherAPI = new WeatherAPI(userData);
