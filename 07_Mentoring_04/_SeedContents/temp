@@ -1,83 +1,80 @@
-    const addToCart = (productItem : ProductModel) => {
+import CartModel from "../cart";
+import { ProductModel } from "../products";
 
-        console.log(`Add to Cart...`);
-        const matchingProduct = cart.cartItemsModel.find( (cartItemModel) => (
-            cartItemModel.product.id === productItem.id
-        ));    
-    
-        if (matchingProduct){
-    
-          const updatedCartItems  = cart.cartItemsModel.map((cartItem) => {
-    
-              if (cartItem.product.id === productItem.id){
-    
-                const updatedCartItem = {
-                  product : cartItem.product,
-                  quantity: cartItem.quantity + 1
-                }
-    
-                return updatedCartItem;
-              }else{
-    
-                const newCartItem = {
-                  product: cartItem.product,
-                  quantity: cartItem.quantity
-                }
-    
-                return newCartItem;
-              }
-            });
-    
-            const updatedCart : CartModel = {
-                cartItemsModel: updatedCartItems
-            } 
-    
-          setCart(updatedCart);
-        }else{
-    
-          const newCartItem = {
-            product: productItem, quantity: 1
-          }
-          
-          const updatedCartItems = 
-            [... cart.cartItemsModel, newCartItem ];
-    
-          const updatedCart : CartModel = {
-            cartItemsModel : updatedCartItems
-          }
-    
-          setCart(updatedCart);
-        }    
-    }
+import {Row, Col, Button} from "react-bootstrap";
 
+type CartPricesViewModel = {
 
-    const removeFromCart = (productItem : ProductModel) => {
+    cart: CartModel;  
+}
 
-        const updatedCartItems : CartItemModel[] = [];
+const CartPricesView = ({cart} : CartPricesViewModel) => {
+
+    const calculateItemsPrice = () => {
+
+        let itemsPrice = 0;
+    
+        cart.cartItemsModel.forEach( (cartItem) => {
+    
+          itemsPrice = itemsPrice + 
+            (cartItem.product.price * cartItem.quantity);
+        })
+    
+        return itemsPrice;
+      }
+    
+      const calculateTaxPrice = () => {
+        return (calculateItemsPrice() * 10 ) / 100
+      }
+    
+      const calculateShippingPrice = () => {
+        return 123;
+      }
+    
+      const calculateTotalPrice = () => {
+    
+        return calculateItemsPrice() + calculateTaxPrice() + calculateShippingPrice();
+      }
+      
+
+      return (
+
+        <>
         
-          cart.cartItemsModel.forEach((cartItem) => {
-    
-            if (cartItem.product.id  === productItem.id){
-    
-              if (cartItem.quantity === 1){
-                // If Quantity is 1, then 'remove' wil make as 0
-                // So no need to add/copy it
-              }else{
-    
-                let updatedCartItem : CartItemModel = {
-                  product: cartItem.product,
-                  quantity: cartItem.quantity - 1
-                }             
-                updatedCartItems.push(updatedCartItem);
-              }
-            }else{
-              updatedCartItems.push(cartItem);
-            }
-          })
-    
-          const updatedCart : CartModel = {
-            cartItemsModel: updatedCartItems
-          }
-    
-          setCart(updatedCart);    
-    }     
+            <hr/>
+
+            <Row>
+                <Col>Items Price</Col>
+                <Col>{calculateItemsPrice()}</Col>
+            </Row>
+
+            <Row>
+            <Col>Tax Price:</Col>
+            <Col>{calculateTaxPrice()}</Col>
+            </Row>
+
+            <Row>
+            <Col>Shipping Price:</Col>
+            <Col>{calculateShippingPrice()}</Col>
+            </Row>
+            <hr/>
+
+
+            <Row>
+                <Col>Total Price:</Col>
+                <Col>{calculateTotalPrice()}</Col>
+            </Row>
+            <hr/>
+
+            <Row>
+                <Col xs={12}>
+                    <Button>Checkout</Button>
+                </Col>
+            </Row>
+
+        </>
+      )
+      
+}
+
+export {CartPricesView};
