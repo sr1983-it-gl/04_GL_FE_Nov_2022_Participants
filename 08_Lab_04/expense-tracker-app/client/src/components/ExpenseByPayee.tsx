@@ -62,6 +62,45 @@ const ExpenseByPayee = ({expenseItems} : ExpenseByPayeeModel) => {
     return totalExpense;
   }
 
+  const getPendingAmount = (payeeName : string) => {
+
+    const totalExpense = getGrandTotal();
+    const totalExpenseByPayee = getTotalExpenseByPayee(payeeName);
+
+    const halfAmount = totalExpense / 2;
+
+    if (totalExpenseByPayee >= halfAmount){
+      return 0;
+    }else{
+
+      return (halfAmount - totalExpenseByPayee);
+    }
+
+    // scenario-1
+    // rahul ramesh
+    // total expenses = 700
+    // rahul - 100
+
+    //
+    // 700 - 350 / 350
+    // rahul - 350 
+    //       - 100
+
+    // 250
+
+    // rahul ramesh
+    // total expenses = 700
+    // rahul - 410
+
+    //
+    // 700 - 350 / 350
+    // rahul - 410 
+    //       - 350
+
+    // -60
+
+  }
+
   return (
     <div>
 
@@ -72,6 +111,7 @@ const ExpenseByPayee = ({expenseItems} : ExpenseByPayeeModel) => {
           <th>#</th>
           <th>Payee Name</th>
           <th>Contributed Amount</th>
+          <th>Pending Amount</th>
         </tr>
       </thead>
 
@@ -87,7 +127,7 @@ const ExpenseByPayee = ({expenseItems} : ExpenseByPayeeModel) => {
             <td>{index + 1}</td>
             <td>{payeeName}</td>
             <td>{getTotalExpenseByPayee(payeeName)}</td>
-
+            <td>{getPendingAmount(payeeName)}</td>
             </tr>
     
           )
