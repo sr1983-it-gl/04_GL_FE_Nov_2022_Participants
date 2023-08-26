@@ -1,5 +1,6 @@
 import React from 'react';
 import { ExpenseTrackerApp } from './components/ExpenseTrackerApp';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
       {
         <ExpenseTrackerApp></ExpenseTrackerApp>
       }
-      
+
     </div>
   );
 }
