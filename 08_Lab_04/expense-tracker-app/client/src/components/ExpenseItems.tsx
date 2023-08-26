@@ -1,7 +1,13 @@
 
 import {Table} from "react-bootstrap"
+import IExpenseItem from "../models/expense";
 
-const ExpenseItems = () => {
+type ExpenseItemsModel = {
+
+  expenseItems : IExpenseItem[];
+}
+
+const ExpenseItems = ({expenseItems} : ExpenseItemsModel) => {
 
   const defaultExpenseItems = [
 
@@ -28,6 +34,16 @@ const ExpenseItems = () => {
     }
   ];
 
+  const convertDateToString = (dateAsString : Date) => {
+
+    const dateObj = new Date(dateAsString);
+
+    return dateObj.getDate() + " - " + (dateObj.getMonth() + 1) 
+      + " - "
+      +   (dateObj.getFullYear());
+
+  }
+
   return (
     <div>
 
@@ -45,7 +61,7 @@ const ExpenseItems = () => {
 
         {
 
-        defaultExpenseItems.map( (expenseItem, index) => {
+        expenseItems.map( (expenseItem, index) => {
 
           return (
 
@@ -53,7 +69,7 @@ const ExpenseItems = () => {
             <td>{index + 1}</td>
             <td>{expenseItem.expenseDescription}</td>
             <td>{expenseItem.payeeName}</td>
-            <td>{expenseItem.date}</td>
+            <td>{convertDateToString(expenseItem.date)}</td>
             <td>{expenseItem.price}</td>
 
             </tr>
