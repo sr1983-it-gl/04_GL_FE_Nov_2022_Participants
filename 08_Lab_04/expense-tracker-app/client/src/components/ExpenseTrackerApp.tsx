@@ -3,10 +3,12 @@ import {useEffect, useState} from "react"
 import {getAllExpenseItems} from "../services/expense";
 import { ExpenseItems } from "./ExpenseItems";
 import {Container} from "react-bootstrap";
+import IExpenseItem from "../models/expense";
+import { ExpenseByPayee } from "./ExpenseByPayee";
 
 const ExpenseTrackerApp = () => {
 
-  const [expenseItems, setExpenseItems] = useState([]);
+  const [expenseItems, setExpenseItems] = useState<IExpenseItem[]>([]);
 
   useEffect( () => {
 
@@ -28,6 +30,8 @@ const ExpenseTrackerApp = () => {
       <h2> Expense Tracker App</h2>
 
       <ExpenseItems expenseItems={expenseItems}></ExpenseItems>
+      <ExpenseByPayee expenseItems={expenseItems}></ExpenseByPayee>
+
     </Container>
   )
 }
