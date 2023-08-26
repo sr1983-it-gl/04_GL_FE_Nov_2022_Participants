@@ -1,9 +1,14 @@
 import React from 'react';
+import { ExpenseTrackerApp } from './components/ExpenseTrackerApp';
 
 function App() {
   return (
     <div className="App">
-      Expense Tracker App
+
+      {
+        <ExpenseTrackerApp></ExpenseTrackerApp>
+      }
+      
     </div>
   );
 }
