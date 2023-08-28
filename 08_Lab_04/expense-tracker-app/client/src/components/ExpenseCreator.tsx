@@ -17,15 +17,28 @@ const ExpenseCreator = ({expenseItems} : ExpenseCreatorModel) => {
   const handleShow = () => setShow(true);
 
   const expenseDescriptionRef = useRef<HTMLInputElement>(null);
+  const payeeNameRef = useRef<HTMLSelectElement>(null);
+  const priceRef = useRef<HTMLInputElement>(null);
+  const expenseDateRef = useRef<HTMLInputElement>(null);
 
   const createForm = () => {
 
     const handleNewExpense = (event : FormEvent<HTMLFormElement>) => {
 
+      event.preventDefault();
+      
       const expenseDescription 
         = expenseDescriptionRef?.current?.value 
+      const payeeName 
+        = payeeNameRef?.current?.value 
       
+      const price = priceRef?.current?.value 
+      const expenseDate = expenseDateRef?.current?.value 
+
       console.log(`Expense Description ${expenseDescription}`);
+      console.log(`Payee name ${payeeName}`);
+      console.log(`Price ${price}`);
+      console.log(`Expense Date ${expenseDate}`);
 
       handleClose();
     }
@@ -40,7 +53,7 @@ const ExpenseCreator = ({expenseItems} : ExpenseCreatorModel) => {
       <Form.Group className="mb-3" controlId="payeeName">
         <Form.Label>Payee Name</Form.Label>
 
-        <Form.Select aria-label="Default select example">
+        <Form.Select aria-label="Default select example" ref={payeeNameRef}>
           <option>SELECT A PAYEE FROM THIS LIST</option>
 
           {
@@ -57,12 +70,12 @@ const ExpenseCreator = ({expenseItems} : ExpenseCreatorModel) => {
 
       <Form.Group className="mb-3" controlId="price">
         <Form.Label>Price</Form.Label>
-        <Form.Control type="number" placeholder="Enter expense price" />    
+        <Form.Control type="number" placeholder="Enter expense price" ref={priceRef}/>    
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="expenseDate">
         <Form.Label>Expense Date</Form.Label>
-        <Form.Control type="date"/>    
+        <Form.Control type="date" ref={expenseDateRef}/>    
       </Form.Group>
       
       <Button variant="primary" type="submit">
