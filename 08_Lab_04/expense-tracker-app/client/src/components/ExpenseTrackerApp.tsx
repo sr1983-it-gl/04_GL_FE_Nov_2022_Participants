@@ -30,7 +30,7 @@ const ExpenseTrackerApp = () => {
     <Container>
       <h2> 
         Expense Tracker App
-        <ExpenseCreator></ExpenseCreator>
+        <ExpenseCreator expenseItems={expenseItems}></ExpenseCreator>
         <br></br>
       </h2>
 

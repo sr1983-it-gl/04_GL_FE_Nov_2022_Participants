@@ -12,4 +12,21 @@ const getAllExpenseItems = async () => {
 
 }
 
-export {getAllExpenseItems}
+const getAllPayeeNames = (expenseItems : IExpenseItem[]) : string[] => {
+
+  const uniquePayeeNames : string[] = [];
+
+  expenseItems.forEach( (expenseItem) => {
+
+    let payeeName = expenseItem.payeeName;
+    if (!uniquePayeeNames.includes(payeeName)){
+
+      uniquePayeeNames.push(payeeName);
+    }
+  })
+
+  return uniquePayeeNames;
+}
+
+
+export {getAllExpenseItems, getAllPayeeNames}
