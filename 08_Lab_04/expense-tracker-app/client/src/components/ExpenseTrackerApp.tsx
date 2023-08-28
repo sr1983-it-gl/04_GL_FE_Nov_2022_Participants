@@ -9,6 +9,7 @@ import { ExpenseCreator } from "./ExpenseCreator";
 
 const ExpenseTrackerApp = () => {
 
+  // s1, s2, s3, s4
   const [expenseItems, setExpenseItems] = useState<IExpenseItem[]>([]);
 
   useEffect( () => {
@@ -24,7 +25,7 @@ const ExpenseTrackerApp = () => {
 
     getAllExpenseItemsInvoker();    
 
-  })
+  }, [])
 
   return (
     <Container>
