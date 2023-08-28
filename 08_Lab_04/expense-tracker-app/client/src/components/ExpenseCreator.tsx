@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap"
 
 import {getAllPayeeNames} from "../services/expense";
@@ -16,13 +16,25 @@ const ExpenseCreator = ({expenseItems} : ExpenseCreatorModel) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const expenseDescriptionRef = useRef<HTMLInputElement>(null);
+
   const createForm = () => {
 
+    const handleNewExpense = (event : FormEvent<HTMLFormElement>) => {
+
+      const expenseDescription 
+        = expenseDescriptionRef?.current?.value 
+      
+      console.log(`Expense Description ${expenseDescription}`);
+
+      handleClose();
+    }
+
     return (
-    <Form>
+    <Form onSubmit={handleNewExpense}>
       <Form.Group className="mb-3" controlId="expenseDescription">
         <Form.Label>Expense Description</Form.Label>
-        <Form.Control type="text" placeholder="Enter expense description" />    
+        <Form.Control type="text" placeholder="Enter expense description" ref={expenseDescriptionRef} />    
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="payeeName">
