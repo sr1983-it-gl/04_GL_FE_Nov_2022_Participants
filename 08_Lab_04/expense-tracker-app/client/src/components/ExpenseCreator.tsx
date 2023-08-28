@@ -2,8 +2,8 @@
 import { FormEvent, useRef, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap"
 
-import {getAllPayeeNames} from "../services/expense";
-import IExpenseItem from "../models/expense";
+import {getAllPayeeNames, postExpenseItem} from "../services/expense";
+import IExpenseItem, { IExpenseCreateItem } from "../models/expense";
 
 type ExpenseCreatorModel = {
   expenseItems : IExpenseItem[];
@@ -23,23 +23,34 @@ const ExpenseCreator = ({expenseItems} : ExpenseCreatorModel) => {
 
   const createForm = () => {
 
-    const handleNewExpense = (event : FormEvent<HTMLFormElement>) => {
+    const handleNewExpense = async (event : FormEvent<HTMLFormElement>) => {
 
       event.preventDefault();
 
       const expenseDescription 
-        = expenseDescriptionRef?.current?.value 
+        = (expenseDescriptionRef?.current?.value as string) 
       const payeeName 
-        = payeeNameRef?.current?.value 
+        = (payeeNameRef?.current?.value as string) 
       
-      const price = priceRef?.current?.value 
-      const expenseDate = expenseDateRef?.current?.value 
+      const price = parseFloat((priceRef?.current?.value as string)) 
+      const expenseDate = 
+        new Date((expenseDateRef?.current?.value as string)) 
 
       console.log(`Expense Description ${expenseDescription}`);
       console.log(`Payee name ${payeeName}`);
       console.log(`Price ${price}`);
       console.log(`Expense Date ${expenseDate}`);
 
+      const newExpenseItem : IExpenseCreateItem = {
+        expenseDescription : expenseDescription,
+        payeeName : payeeName,
+        price : price,
+        date : expenseDate
+      }
+
+      const respone = await postExpenseItem(newExpenseItem);
+      console.log('Response is ' + JSON.stringify(respone));
+      
       handleClose();
     }
 
