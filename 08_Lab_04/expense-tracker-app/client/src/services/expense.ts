@@ -4,7 +4,10 @@ import IExpenseItem, { IExpenseCreateItem } from "../models/expense";
 
 const getAllExpenseItems = async () => {
 
-  const GET_EXPENSE_ITEMS_URL = 'http://localhost:4000/expenses';
+  // const GET_EXPENSE_ITEMS_URL = 'http://localhost:4000/expenses';
+
+  const GET_EXPENSE_ITEMS_URL =
+  'http://localhost:4000/expenses?_sort=id&_order=desc';
 
   const response = await axios.get<IExpenseItem[]>(GET_EXPENSE_ITEMS_URL);
   // 2 seconds

@@ -41,6 +41,27 @@
       "price": 123,
       "date": "2023-08-28T00:00:00.000Z",
       "id": 6
+    },
+    {
+      "expenseDescription": "test-1",
+      "payeeName": "Rahul",
+      "price": 11,
+      "date": "2023-08-16T00:00:00.000Z",
+      "id": 7
+    },
+    {
+      "expenseDescription": "test2-2",
+      "payeeName": "Rahul",
+      "price": 222,
+      "date": "2023-08-15T00:00:00.000Z",
+      "id": 8
+    },
+    {
+      "expenseDescription": "test-3",
+      "payeeName": "Rahul",
+      "price": 333,
+      "date": "2023-08-09T00:00:00.000Z",
+      "id": 9
     }
   ]
 }
