@@ -26,7 +26,7 @@ const ExpenseCreator = ({expenseItems} : ExpenseCreatorModel) => {
     const handleNewExpense = (event : FormEvent<HTMLFormElement>) => {
 
       event.preventDefault();
-      
+
       const expenseDescription 
         = expenseDescriptionRef?.current?.value 
       const payeeName 

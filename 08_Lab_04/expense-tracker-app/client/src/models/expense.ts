@@ -11,4 +11,17 @@ interface IExpenseItem {
 
 }
 
+// interface IExpenseCreateItem {
+
+// }
+
+export type IExpenseCreateItem = Omit<IExpenseItem, "id">
+
+// Create Expense Item
+  // expenseDescription
+  //  payeeName
+  // price
+  // date
+  // ID [Not Needed]
+
 export default IExpenseItem;
